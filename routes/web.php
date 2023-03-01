@@ -20,13 +20,28 @@ use App\Http\Controllers\TopicController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('admin.login');
+    return redirect()->route('login');
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::get('login', [AuthController::class, 'login_view'])->name('login');
+    Route::post('login', [AuthController::class, 'login']);
 });
 
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::controller(SubjectController::class)->group(function () {
+    Route::get('admin/subjects', 'index')->name('admin.subjects');
+    Route::get('admin/subject/create', 'create')->name('admin.subject.create');
+    Route::post('admin/subject/create', 'store');
+    Route::get('admin/subject/{subject}/edit', 'edit')->name('admin.subject.edit');
+    Route::post('admin/subject/{subject}/edit', 'update');
+});
 
-Route::get('/admin/subjects', [SubjectController::class, 'index'])->name('admin.subjects');
-Route::get('/admin/topics', [TopicController::class, 'index'])->name('admin.topics');
+Route::controller(TopicController::class)->group(function(){
+    Route::get('/admin/topics', 'index')->name('admin.topics');
+    Route::get('/admin/topic/create', 'create')->name('admin.topic.create');
+    Route::post('/admin/topic/create', 'store');
+});
+
 Route::get('/admin/questions', [QuestionController::class, 'index'])->name('admin.questions');

@@ -7,9 +7,10 @@
               </p>
           </header>
           <div class="card-content">
-              <form method="get">
+              <form method="post" action="">
+                @csrf
                   <div class="field">
-                      <label class="label">From</label>
+                      <label class="label">Form</label>
                       <div class="field-body">
                           <div class="field">
                               <div class="control icons-left">

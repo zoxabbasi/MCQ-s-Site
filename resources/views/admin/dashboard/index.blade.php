@@ -13,14 +13,15 @@
     {{-- To include hero --}}
     @include('partials.ishero')
 
-This is admin dashboard
-dd(Hash::'12345');
+This is admin dashboard;
 
 
     {{-- To include footer --}}
     @include('partials.footer')
     {{-- To include script --}}
     @include('partials.script')
+
+    <x-flashmessage />
 </body>
 
 </html>

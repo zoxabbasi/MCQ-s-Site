@@ -20,6 +20,7 @@
     @include('partials.footer')
     {{-- To include script --}}
     @include('partials.script')
+    <x-flashmessage/>
 </body>
 
 </html>

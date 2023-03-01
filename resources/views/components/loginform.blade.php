@@ -7,29 +7,36 @@
               </p>
           </header>
           <div class="card-content">
-              <form method="get">
+              <form method="POST" action={{ route('login') }}>
+                @csrf
                   <div class="field spaced">
                       <label class="label">Login</label>
                       <div class="control icons-left">
-                          <input class="input" type="text" name="login" placeholder="user@example.com"
+                          <input class="input @error('email') is-invalid @enderror" type="text" name="email" placeholder="user@example.com"
                               autocomplete="username">
                           <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
                       </div>
                       <p class="help">
                           Please enter your login
                       </p>
+                      @error('email')
+                        <p class="text-red-500">{{ $message }}</p>
+                      @enderror
                   </div>
 
                   <div class="field spaced">
                       <label class="label">Password</label>
                       <p class="control icons-left">
-                          <input class="input" type="password" name="password" placeholder="Password"
+                          <input class="input  @error('password') is-invalid @enderror" type="password" name="password" placeholder="Password"
                               autocomplete="current-password">
                           <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>
                       </p>
                       <p class="help">
                           Please enter your password
                       </p>
+                      @error('password')
+                          <p class="text-red-500">{{ $message }}</p>
+                      @enderror
                   </div>
 
                   <div class="field spaced">
