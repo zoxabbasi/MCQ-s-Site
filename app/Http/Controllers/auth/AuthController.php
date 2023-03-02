@@ -13,17 +13,21 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
-        // dd($request);
         $request->validate([
             'email'=>['required'],
             'password' => ['required'],
         ]);
 
         if(Auth::attempt($request->except('_token','remember'))){
-            return redirect()->route('admin.dashboard')->with('message', 'Successfully loged in');
-        } else {
-            return redirect()->route('admin.auth.login')->with('message', 'Invalid Combination');
+            $request->session()->regenerate();
+            return redirect(route('admin.dashboard'))->with('message', 'Successfully logged in');
         }
+        return back()->withErrors(['email'=> 'Invalid credientials'])->onlyInput('email');
+    }
+
+    public function logout(Request $request)
+    {
+        return redirect(route('login'))->with('message', 'Successfully logged out');
     }
 
 }

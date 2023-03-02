@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" class="">
-{{-- To include header --}}
-@include('partials.header')
+<x-layout>
 
-<body>
-    {{-- To include navbar --}}
-    @include('partials.topnavbar')
-    {{-- To include sidebar --}}
-    @include('partials.sidenavbar')
-    {{-- To include title --}}
-    @include('partials.istitle')
-    {{-- To include hero --}}
-    @include('partials.ishero')
-
+    <section class="is-hero-bar">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+            <h1 class="title">
+                Subjects
+            </h1>
+            <a href="{{ route('admin.subject.create') }}" class="button light">Add Subject</a>
+        </div>
+    </section>
     <div class="card has-table">
         <div class="card-content">
             @if (count($subjects))
@@ -22,6 +17,7 @@
                             <th>Sr. No</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Number of topics</th>
                             <th>Slug</th>
                             <th>Action</th>
                         </tr>
@@ -31,7 +27,8 @@
                             <tr>
                                 <td data-label="Sr. No">{{ $loop->iteration }}</td>
                                 <td data-label="Name">{{ $subject->name }}</td>
-                                <td data-label="Name">{{ $subject->description }}</td>
+                                <td data-label="Description">{{ $subject->description }}</td>
+                                <td data-label="Number">{{ count($subject->topics) }}</td>
                                 <td data-label="Slug">{{ $subject->slug }}</td>
                                 <td class="actions-cell">
                                     <div class="buttons right nowrap">
@@ -54,10 +51,4 @@
         </div>
     </div>
 
-    {{-- To include footer --}}
-    @include('partials.footer')
-    {{-- To include script --}}
-    @include('partials.script')
-</body>
-
-</html>
+</x-layout>

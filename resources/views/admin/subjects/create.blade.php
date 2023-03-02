@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" class="">
-{{-- To include header --}}
-@include('partials.header')
-
-<body>
-    {{-- To include navbar --}}
-    @include('partials.topnavbar')
-    {{-- To include sidebar --}}
-    @include('partials.sidenavbar')
-    {{-- To include title --}}
-    @include('partials.istitle')
-    {{-- To include hero --}}
-    @include('partials.ishero')
-
+<x-layout>
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <h1 class="title">
+            Subjects
+        </h1>
+        <a href="{{ route('admin.subjects') }}" class="button light">Back</a>
+    </div>
     <section class="section main-section">
         <div class="card mb-6">
             <header class="card-header">
@@ -61,12 +53,4 @@
             </div>
         </div>
     </section>
-
-
-    {{-- To include footer --}}
-    @include('partials.footer')
-    {{-- To include script --}}
-    @include('partials.script')
-</body>
-
-</html>
+</x-layout>

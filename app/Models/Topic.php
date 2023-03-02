@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'subject_id',
+        'name',
+        'slug',
+        'description',
+    ];
+
+    public function subject(){
+        return $this->belongsTo(Subject::class);
+    }
 }
+?>

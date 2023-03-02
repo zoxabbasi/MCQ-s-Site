@@ -1,16 +1,14 @@
 <x-layout>
-    <section class="is-hero-bar">
-        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-            <h1 class="title">
-                Subjects
-            </h1>
-            <a href="{{ route('admin.subjects') }}" class="button light">Back Subject</a>
-        </div>
-    </section>
     <section class="section main-section">
         <div class="card mb-6">
+            <header class="card-header">
+                <p class="card-header-title">
+                    <span class="icon"><i class="mdi mdi-ballot"></i></span>
+                    Edit Subject Form
+                </p>
+            </header>
             <div class="card-content">
-                <form method="POST" action="{{ route('admin.subject.edit', $subject) }}">
+                <form method="POST" action="{{ route('admin.topic.edit', $topic) }}">
                     @csrf
                     <div class="field">
                         <label class="label">Name</label>
@@ -18,7 +16,7 @@
                             <div class="field">
                                 <div class="control icons-left">
                                     <input class="input" type="text" placeholder="Enter subjects name"
-                                        name="name" value="{{ old('name') ? old('name') : $subject->name }}">
+                                        name="name" value="{{ old('name') ? old('name') : $topic->name }}">
                                     <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     @error('name')
                                         <p class="text-red-500">{{ $message }}</p>
@@ -30,7 +28,7 @@
                     <div class="field">
                         <label class="label">Description</label>
                         <div class="control">
-                            <textarea class="textarea" placeholder="Explain how we can help you" name="description">{{ old('description') ? old('description') : $subject->description }}</textarea>
+                            <textarea class="textarea" placeholder="Explain how we can help you" name="description">{{ old('description') ? old('description') : $topic->description }}</textarea>
                         </div>
                     </div>
                     <hr>
@@ -50,5 +48,4 @@
             </div>
         </div>
     </section>
-
 </x-layout>

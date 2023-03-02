@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
+use App\Models\Subject;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
@@ -12,7 +14,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return view('admin.topics.index');
+        return view('admin.topics.index', ['topics' => Topic::all()]);
     }
 
     /**
@@ -20,7 +22,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.topics.create', ['subjects' => Subject::all()]);
     }
 
     /**
@@ -28,7 +30,20 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'subject' => ['required'],
+            'name' => ['required'],
+        ]);
+
+        $data = [
+            'subject_id' => $request->subject,
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => Str::slug($request->name)
+        ];
+
+
+        return Topic::create($data) ? redirect(route('admin.topics'))->with('message', 'Topic successfuly created') : redirect(route('admin.topics'))->with('message', 'Something went wrong');
     }
 
     /**
@@ -44,7 +59,7 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        //
+        return view('admin.topics.edit', ['topic' => $topic]);
     }
 
     /**
@@ -52,7 +67,17 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => Str::slug($request->name)
+        ];
+
+        return $topic->update($data) ? redirect(route('admin.topics'))->with('message', 'Topic successfully updated') : redirect(route('admin.topics'))->with('message', 'Something went wrong');
     }
 
     /**

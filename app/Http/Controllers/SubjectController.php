@@ -40,7 +40,8 @@ class SubjectController extends Controller
             'description' => $request->description
         ];
 
-        return Subject::create($data) ? redirect()->back()->with(['message' => 'Subject has been added']) : redirect()->back()->with(['message' => 'Something went wrong']);
+        return Subject::create($data) ? redirect(route('admin.subjects'))->with('message', 'Subject has been added') : redirect(route('admin.subjects'))->with('message', 'Something went wrong');
+
     }
 
     /**
@@ -56,7 +57,7 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        return(view('admin.subjects.edit', ['subject' => $subject]));
+        return (view('admin.subjects.edit', ['subject' => $subject]));
     }
 
     /**
@@ -74,7 +75,7 @@ class SubjectController extends Controller
             'description' => $request->description
         ];
 
-        return $subject->update($data) ? redirect()->back()->with(['message' => 'Subject has been updated']) : redirect()->back()->with(['message' => 'Something went wrong']);
+        return $subject->update($data) ? redirect(route('admin.subjects'))->with('message', 'Subject has been updated') : redirect(route('admin.subjects'))->with('message', 'Something went wrong');
     }
 
     /**

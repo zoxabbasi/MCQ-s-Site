@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" class="">
-{{-- To include header --}}
-@include('partials.header')
-
-<body>
-    {{-- To include navbar --}}
-    @include('partials.topnavbar')
-    {{-- To include sidebar --}}
-    @include('partials.sidenavbar')
-    {{-- To include title --}}
-    @include('partials.istitle')
-    {{-- To include hero --}}
-    @include('partials.ishero')
-
+<x-layout>
     <section class="section main-section">
         <div class="card mb-6">
             <header class="card-header">
@@ -24,6 +10,22 @@
             <div class="card-content">
                 <form method="POST" action="{{ route('admin.topic.create') }}">
                     @csrf
+
+                    <div class="field">
+                        <label class="label">Subject</label>
+                        <div class="control">
+                            <div class="select">
+                                <select name="subject">
+                                    <option>Select relevant subject</option>
+                                    @foreach ($subjects as $subject)
+                                        <option value="{{ $subject->id }}"
+                                            {{ old('subject') == $subject->id ? 'selected' : '' }}>{{ $subject->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="field">
                         <label class="label">Name</label>
                         <div class="field-body">
@@ -61,12 +63,4 @@
             </div>
         </div>
     </section>
-
-
-    {{-- To include footer --}}
-    @include('partials.footer')
-    {{-- To include script --}}
-    @include('partials.script')
-</body>
-
-</html>
+</x-layout>

@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" class="">
-{{-- To include header --}}
-@include('partials.header')
-
-<body>
-    {{-- To include navbar --}}
-    @include('partials.topnavbar')
-    {{-- To include sidebar --}}
-    @include('partials.sidenavbar')
-    {{-- To include title --}}
-    @include('partials.istitle')
-    {{-- To include hero --}}
-    @include('partials.ishero')
-
-This is admin dashboard;
-
-
-    {{-- To include footer --}}
-    @include('partials.footer')
-    {{-- To include script --}}
-    @include('partials.script')
-
-    <x-flashmessage />
-</body>
-
-</html>
+<x-layout>
+This is admin.index
+</x-layout>

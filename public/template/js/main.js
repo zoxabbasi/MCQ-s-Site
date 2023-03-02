@@ -1,4 +1,4 @@
-"use strict";
+
 
 /* Aside & Navbar: dropdowns */
 Array.from(document.getElementsByClassName('dropdown')).forEach(function (elA) {

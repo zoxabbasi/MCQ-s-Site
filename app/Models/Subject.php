@@ -14,4 +14,9 @@ class Subject extends Model
         'slug',
         'description',
     ];
+
+    public function topics(){
+        return $this->hasMany(Topic::class);
+    }
 }
+?>
