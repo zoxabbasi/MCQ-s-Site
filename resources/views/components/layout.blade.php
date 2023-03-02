@@ -20,7 +20,6 @@
         <x-top-navbar />
         <x-side-navbar />
         <x-is-title />
-        {{-- <x-is-hero /> --}}
 
         <main>
             {{ $slot }}

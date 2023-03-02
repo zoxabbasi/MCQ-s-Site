@@ -1,13 +1,5 @@
 <x-layout>
-
-    <section class="is-hero-bar">
-        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-            <h1 class="title">
-                Topics
-            </h1>
-            <a href="{{ route('admin.topic.create') }}" class="button light">Add Topic</a>
-        </div>
-    </section>
+    <x-hero title="Topics" button="Add Topic" href="{{ route('admin.topic.create') }}"/>
     <div class="card has-table">
         <div class="card-content">
             @if (count($topics))

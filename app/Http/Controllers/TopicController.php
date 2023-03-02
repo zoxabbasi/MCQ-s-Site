@@ -14,7 +14,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return view('admin.topics.index', ['topics' => Topic::all()]);
+        return view('admin.topics.index', ['topics' => Topic::with('subject')->get()]);
     }
 
     /**
@@ -59,7 +59,10 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        return view('admin.topics.edit', ['topic' => $topic]);
+        return view('admin.topics.edit', [
+            'topic' => $topic,
+            'subjects' => Subject::all(),
+        ]);
     }
 
     /**
@@ -67,17 +70,7 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
-        $request->validate([
-            'name' => ['required'],
-        ]);
 
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-            'slug' => Str::slug($request->name)
-        ];
-
-        return $topic->update($data) ? redirect(route('admin.topics'))->with('message', 'Topic successfully updated') : redirect(route('admin.topics'))->with('message', 'Something went wrong');
     }
 
     /**

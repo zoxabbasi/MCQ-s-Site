@@ -1,3 +1,3 @@
 <x-layout>
-This is admin.index
+    <x-hero title="Dashboard" />
 </x-layout>
