@@ -1,3 +1,3 @@
 <x-layout>
-    <x-hero title="Dashboard" />
+    <x-hero title="Dashboard" button="Back"/>
 </x-layout>

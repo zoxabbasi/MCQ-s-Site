@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\DynamicController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TopicController;
@@ -51,5 +52,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::controller(QuestionController::class)->group(function () {
         Route::get('/questions', 'index')->name('questions');
+        Route::get('/question/create', 'create')->name('question.create');
+        Route::post('/question/create', 'store');
+    });
+
+    Route::controller(DynamicController::class)->group(function(){
+        Route::post('subject/topics', 'fetch_topics')->name('subject.topics');
     });
 });
