@@ -1,5 +1,5 @@
-<x-layout>
-    <x-hero title="Subjects" button="Back" href="{{ route('admin.subjects') }}"/>
+<x-admin.layout>
+    <x-admin.hero title="Subjects" button="Back" href="{{ route('admin.subjects') }}"/>
     <section class="section main-section">
         <div class="card mb-6">
             <div class="card-content">
@@ -44,4 +44,4 @@
         </div>
     </section>
 
-</x-layout>
+</x-admin.layout>

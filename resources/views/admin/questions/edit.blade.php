@@ -4,6 +4,7 @@
         <form method="post" action={{ route('admin.question.create') }}>
             @csrf
 
+            {{-- Dropdown for subjects --}}
             <div class="field">
                 <label class="label">Subject</label>
                 <div class="control">
@@ -29,18 +30,17 @@
                 </div>
             </div>
 
+            {{-- Dropdown for topics --}}
             <div class="field">
                 <label class="label">Topic</label>
                 <div class="control">
                     <div class="select">
                         <select name="topic" id="topic">
                             @if (old('subject') || old('topic'))
-
                                 @if (count($subject_model->topics) > 0)
                                     <option>Select relevant topic</option>
-
                                     @foreach ($topics as $topic)
-                                        @if ($topic->subject_id == old('subject'))
+                                        @if ($topic->subject->id == old('subject'))
                                             <option value="{{ $topic->id }}"
                                                 {{ old('topic') == $topic->id ? 'selected' : '' }}>
                                                 {{ $topic->name }}
@@ -61,6 +61,7 @@
                 </div>
             </div>
 
+            {{-- Text field for name --}}
             <div class="field">
                 <label class="label">Text</label>
                 <div class="field-body">
@@ -76,6 +77,7 @@
                 </div>
             </div>
 
+            {{-- Loop for choices --}}
             @for ($i = 1; $i <= 4; $i++)
                 @php
                     $choice = 'choice_' . $i;
@@ -97,6 +99,7 @@
                 </div>
             @endfor
 
+            {{-- Text field for correct choice --}}
             <div class="field">
                 <label class="label">Correct Choice</label>
                 <div class="field-body">
@@ -112,6 +115,7 @@
                 </div>
             </div>
 
+            {{-- Text field for explanation --}}
             <div class="field">
                 <label class="label">Explanation</label>
                 <div class="control">
@@ -120,6 +124,7 @@
             </div>
             <hr>
 
+            {{-- Buttons --}}
             <div class="field grouped">
                 <div class="control">
                     <button type="submit" class="button green">
@@ -136,6 +141,8 @@
     </div>
     </div>
     </section>
+
+    {{-- API --}}
     <script>
         const subjectElement = document.querySelector('#subject');
         const topicElement = document.querySelector('#topic');
@@ -149,19 +156,19 @@
                 _token: token,
             }
 
-            fetch('{{ route('admin.subject.topics') }}', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(result) {
-                // topicElement.innerHTML = result;
-                console.log(data);
+            fetch('', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(result) {
+                    // topicElement.innerHTML = result;
+                    console.log(data);
                 })
         })
     </script>

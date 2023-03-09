@@ -15,8 +15,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return view('admin.questions.index',[
-            'questions' => Question::with('topic')->get()
+        return view('admin.questions.index', [
+            'questions' => Question::with('topic', 'choices')->get(),
+            'subjects' => Subject::all()
         ]);
     }
 
@@ -87,7 +88,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+
     }
 
     /**
@@ -95,7 +96,10 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('admin.questions.edit',[
+            'subjects' => Subject::all(),
+            'topics' => Topic::all(),
+        ]);
     }
 
     /**

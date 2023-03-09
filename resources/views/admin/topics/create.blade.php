@@ -1,5 +1,5 @@
-<x-layout>
-    <x-hero title="Topics" button="Back" href="{{ route('admin.topics') }}"/>
+<x-admin.layout>
+    <x-admin.hero title="Topics" button="Back" href="{{ route('admin.topics') }}"/>
     <div class="card-content">
         <form method="POST" action="{{ route('admin.topic.create') }}">
             @csrf
@@ -56,4 +56,4 @@
     </div>
     </div>
     </section>
-</x-layout>
+</x-admin.layout>

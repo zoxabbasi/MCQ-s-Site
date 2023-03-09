@@ -1,4 +1,4 @@
-<x-layout>
+<x-admin.layout>
 
     <section class="section main-section">
         <div class="card">

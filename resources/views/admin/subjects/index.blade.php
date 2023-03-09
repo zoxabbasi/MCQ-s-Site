@@ -1,5 +1,5 @@
-<x-layout>
-    <x-hero title="Subjects" button="Add Subjects" href="{{ route('admin.subject.create') }}" />
+<x-admin.layout>
+    <x-admin.hero title="Subjects" button="Add Subjects" href="{{ route('admin.subject.create') }}" />
 
     <div class="card has-table">
         <div class="card-content">
@@ -44,4 +44,4 @@
         </div>
     </div>
 
-</x-layout>
+</x-admin.layout>

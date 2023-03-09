@@ -15,9 +15,9 @@
 
 <body>
     <div id="app">
-        <x-top-navbar />
-        <x-side-navbar />
-        <x-is-title />
+        <x-admin.top-navbar />
+        <x-admin.side-navbar />
+        {{-- @include('partials.search') --}}
 
         <main>
             {{ $slot }}
@@ -25,8 +25,8 @@
 
     </div>
     {{-- @include('partials.admin.modal'); --}}
-    <x-script />
-    <x-flash-messages />
+    <x-admin.script />
+    <x-admin.flash-messages />
 </body>
 
 </html>

@@ -18,11 +18,21 @@ class Question extends Model
         'count',
     ];
 
-    public function topic(){
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('text', 'like', '%' . request('search') . '%')
+                ->orWhere('explanation', 'like', '%' . request('search') . '%');
+        }
+    }
+
+    public function topic()
+    {
         return $this->belongsTo(Topic::class);
     }
 
-    public function choices(){
+    public function choices()
+    {
         return $this->hasMany(Choice::class);
     }
 }
