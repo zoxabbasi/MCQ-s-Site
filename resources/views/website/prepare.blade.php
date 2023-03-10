@@ -2,9 +2,9 @@
 
     <div class="container marketing">
         <div class="row my-5">
-
             <div class="col-md-3">
 
+                {{-- To display all the topics of a specific subject  --}}
                 @foreach ($subject->topics as $topic)
                     <div class="card mb-2">
                         <div class="">
@@ -14,6 +14,8 @@
                     </div>
                 @endforeach
             </div>
+
+            {{-- To display all the questions of the topic --}}
             <div class="col-md-9">
                 @if (count($questions) > 0)
                     @foreach ($questions as $question)
@@ -24,7 +26,8 @@
                                         <h5>{{ $loop->iteration . '. ' . $question->text }}</h5>
                                     </div>
                                     <div class="col-2">
-                                        <button class="btn btn-dark" onclick="toggle({{ $question->id }})">Show Answer</button>
+                                        <button class="btn btn-dark" onclick="toggle({{ $question->id }})">Show
+                                            Answer</button>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -46,7 +49,8 @@
 
                                 <div class="row">
                                     <div class="col-12">
-                                        <p class="border rounded p-2 d-none" id="{{ $question->id }}">{{ $number . '. ' . $correct }}</p>
+                                        <p class="border rounded p-2 d-none" id="{{ $question->id }}">
+                                            {{ $number . '. ' . $correct }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -62,6 +66,8 @@
             </div>
         </div>
     </div>
+
+    {{-- Script to display the correct answer --}}
     <script>
         function toggle(id) {
             let correctElement = document.getElementById(id);

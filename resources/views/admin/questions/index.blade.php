@@ -7,20 +7,21 @@
             <div
                 class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 my-10">
                 <div class="flex flex-col justify-between p-4 leading-normal">
-                    <label
-                        class="label mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Subject</label>
+                    <label class="label mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        Subject
+                    </label>
                     <div class="control">
                         <div class="select">
                             <select name="subject" id="subject">
                                 <option>Select a subject</option>
                                 @if (count($subjects))
                                     @foreach ($subjects as $subject)
+                                        {{-- Assiging a variable to the selected subjects model --}}
                                         @php
                                             if ($subject->id == old('subject')) {
                                                 $subject_model = $subject;
                                             }
                                         @endphp
-
                                         <option value="{{ $subject->id }}"
                                             {{ old('subject') == $subject->id ? 'selected' : '' }}>
                                             {{ $subject->name }}
@@ -38,13 +39,16 @@
             <div
                 class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 my-10">
                 <div class="flex flex-col justify-between p-4 leading-normal">
-                    <label
-                        class="label mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Topic</label>
+                    <label class="label mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Topic
+                    </label>
                     <div class="control">
                         <div class="select">
                             <select name="topic" id="topic">
                                 <option>Select a topic</option>
+
                                 @if (old('subject') || old('topic'))
+
+                                    {{-- If the assigned variable has a topic --}}
                                     @if (count($subject_model->topics) > 0)
                                         <option value="" selected disabled hidden>Please select the topic!
                                         </option>
@@ -58,12 +62,9 @@
                                         @endforeach
                                     @endif
                                 @endif
-
                             </select>
-
                         </div>
                     </div>
-                    </h6>
                 </div>
             </div>
         </div>
@@ -74,8 +75,8 @@
             <div id="questions"></div>
         </div>
 
+        {{-- To display all the questions from the database --}}
         <div class="card-content" id="all-questions">
-            {{-- To display all the questions from the database --}}
             @if (count($questions))
                 @foreach ($questions as $question)
                     <div
@@ -108,6 +109,7 @@
         </div>
     </div>
 
+    {{-- To get all the topics of the specific subject in the dropdown --}}
     <script>
         const subjectElement = document.querySelector('#subject');
         const topicElement = document.querySelector('#topic');
@@ -137,6 +139,7 @@
         })
     </script>
 
+    {{-- To get all the questions of the specific topic in the dropdown --}}
     <script>
         const allquestionElement = document.querySelector('#all-questions')
         const topicsElement = document.querySelector('#topic');

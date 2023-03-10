@@ -12,10 +12,10 @@
     </div>
 
     <div class="container marketing">
-
         <h1 class="text-center">Select the subject</h1>
-
         <div class="row my-5">
+
+            {{-- To display all the topics of the specific subject --}}
             @if (count($topics) > 0)
                 @foreach ($topics as $topic)
                     <div class="col-md-4">
@@ -35,9 +35,7 @@
                     </div>
                 </div>
             @endif
-
         </div>
-
     </div>
 
 </x-webpage.layout>

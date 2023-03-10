@@ -11,10 +11,17 @@ use Illuminate\Support\Facades\Route;
 
 class PagesController extends Controller
 {
-    public function subject(){
+
+    //Controller for website.select-subject
+    public function subject()
+    {
+
+        //To use the same pages (website.select-subject) for website.prepare and webiste.practice
         $route_name = explode('.', Route::currentRouteName());
+        //If the route name has prepare at the end, then create the route for prepare
         if (end($route_name) == 'prepare') {
             $route = 'select.topics.prepare';
+            //If the route name has practice at the end, then create the route for practice
         } elseif (end($route_name) == 'practice') {
             $route = 'select.topics.practice';
         }
@@ -25,10 +32,16 @@ class PagesController extends Controller
         ]);
     }
 
-    public function topic(Subject $subject){
+    //Controller for website.select-topic
+    public function topic(Subject $subject)
+    {
+
+        //To use the same pages (website.select-subject) for website.prepare and webiste.practice
         $route_name = explode('.', Route::currentRouteName());
+        //If the route name has prepare at the end, then create the route for prepare
         if (end($route_name) == 'prepare') {
             $route = 'prepare';
+            //If the route name has practice at the end, then create the route for practice
         } elseif (end($route_name) == 'practice') {
             $route = 'practice';
         }
@@ -39,13 +52,16 @@ class PagesController extends Controller
         ]);
     }
 
-    public function prepare(Subject $subject, Topic $topic){
-        return view('website.prepare',[
+    //Controller for website.prepare
+    public function prepare(Subject $subject, Topic $topic)
+    {
+        return view('website.prepare', [
             'questions' => Question::where('topic_id', $topic->id)->get(),
             'subject' => $subject,
         ]);
     }
 
+    //Controller for website.practice
     public function practice(Subject $subject, Topic $topic)
     {
         $total = Question::where('topic_id', $topic->id)->count();

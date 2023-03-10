@@ -11,10 +11,10 @@
     </div>
 
     <div class="container marketing">
-
         <h1 class="text-center">Select the subject</h1>
-
         <div class="row my-5">
+
+            {{-- To get all the subjects  --}}
             @if (count($subjects) > 0)
                 @foreach ($subjects as $subject)
                     <div class="col-md-4">

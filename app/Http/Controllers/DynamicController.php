@@ -6,9 +6,12 @@ use App\Models\Topic;
 use App\Models\Choice;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class DynamicController extends Controller
 {
+
+    //For admin.topics.index. To get all the topics of the specific subject.
     public function fetch_topics()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -24,6 +27,7 @@ class DynamicController extends Controller
         echo json_encode($output);
     }
 
+    //For admin.questions.index. To get all the topics of the specific subject.
     public function fetch_topics_questions()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -39,6 +43,7 @@ class DynamicController extends Controller
         echo json_encode($output);
     }
 
+    //For admin.questions.index. To get all the subjects of the specific topic.
     public function fetch_topics_questions_all()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -62,6 +67,7 @@ class DynamicController extends Controller
         echo json_encode($output);
     }
 
+
     public function fetch_topics_all()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -78,17 +84,30 @@ class DynamicController extends Controller
         echo json_encode($output);
     }
 
+    //To check the answer of question, and get the next question
     public function check_question() {
         $data = json_decode(file_get_contents('php://input'), true);
-        $is_correct = Choice::where([
-            ['id', $data['choice_id']],
-            ['is_correct', 1],
+        $choice = Choice::with('question')->where([
+            ['id', $data['choice_id']]
         ])->first();
 
-        if ($is_correct) {
-            echo json_encode(true);
+        if ($choice->is_correct == 1) {
+            $status = 'Correct';
         } else {
-            echo json_encode(false);
+            $status = 'Incorrect';
         }
+
+        $questions = Question::where('topic_id', $choice->question->topic_id)->get();
+        $questions = $choice->question->topic->questions;
+        $next_question = $questions->get($data['currentQuestion']);
+
+        Session::put('_token', sha1(microtime()));
+        $new_token = session()->get('_token');
+        echo json_encode([
+            'new_token' => $new_token,
+            'status' => $status,
+            'next_question' => $next_question,
+            'choices' => $next_question->choices
+        ]);
     }
 }
