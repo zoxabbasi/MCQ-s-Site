@@ -11,7 +11,7 @@
             <button class="btn btn-primary btn-lg" type="button">Get Started</button>
         </div>
     </div>
-    <div class="container marketing">
+    <div class="container">
         <div class="row my-5">
             <div class="col-12">
                 <h1 class="text-center">3Ps, Preparation Tool</h1>

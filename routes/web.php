@@ -76,8 +76,9 @@ Route::controller(PagesController::class)->group(function () {
     Route::get('select-subject/practice', 'subject')->name('select.subject.practice');
     Route::get('select-topic/practice/{subject:slug}', 'topic')->name('select.topics.practice');
     Route::get('practice/{subject:slug}/{topic:slug}', 'practice')->name('practice');
-});
 
+    Route::get('search', 'search')->name('search');
+});
 
 Route::controller(DynamicController::class)->group(function () {
     Route::post('question/check', 'check_question')->name('question.check');

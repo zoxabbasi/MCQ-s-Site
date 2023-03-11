@@ -1,6 +1,6 @@
 <x-webpage.layout>
 
-    <div class="container marketing">
+    <div class="container">
         <div class="row my-5">
             <div class="col-md-9">
                 <div class="card">

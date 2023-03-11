@@ -2,56 +2,46 @@
 
     <div class="container">
         <div class="row my-5">
-            <div class="col-md-3">
-
-                {{-- To display all the topics of a specific subject  --}}
-                @foreach ($subject->topics as $topic)
-                    <div class="card mb-2">
-                        <div class="">
-                            <a href="{{ route('prepare', [$topic->subject, $topic]) }}"
-                                class="d-block text-decoration-none text-dark p-2">{{ $topic->name }}</a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
 
             {{-- To display all the questions of the topic --}}
-            <div class="col-md-9">
-                @if (count($questions) > 0)
-                    @foreach ($questions as $question)
+            <div class="col-md-12">
+                @if (count($search) > 0)
+                    @foreach ($search as $i)
                         <div class="card mb-2">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-10">
-                                        <h5>{{ $loop->iteration . '. ' . $question->text }}</h5>
+                                    <div class="col-8">
+                                        <h5>{{ $loop->iteration . '. ' . $i->text }}</h5>
                                     </div>
                                     <div class="col-2">
-                                        <button class="btn btn-dark" onclick="toggle({{ $question->id }})">Show
-                                            Answer</button>
+                                        <h5>Topic:</h5><p>{{ $i->topic->name}}</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <h5>Subject:</h5><p>{{ $i->topic->subject->name}}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <ol>
-                                            @foreach ($question->choices as $choice)
-                                                @if ($choice->is_correct == 1)
+                                        <ul>
+                                            @foreach ($i->choices as $choice)
+                                                {{-- @if ($i->is_correct == 1)
                                                     @php
                                                         $correct = $choice->text;
                                                         $number = $loop->iteration;
                                                     @endphp
                                                 @else
-                                                @endif
+                                                @endif --}}
                                                 <li>{{ $choice->text }}</li>
                                             @endforeach
-                                        </ol>
+                                        </ul>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-12">
-                                        <p class="border rounded p-2 d-none" id="{{ $question->id }}">
+                                    {{-- <div class="col-12">
+                                        <p class="border rounded p-2 d-none" id="{{ $i->id }}">
                                             {{ $number . '. ' . $correct }}</p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

@@ -71,4 +71,19 @@ class PagesController extends Controller
             'total' => $total
         ]);
     }
+
+    //Controller for search
+    public function search(Request $request)
+    {
+
+        // if ($filters['search'] ?? false) {
+        //     $query->where('title', 'like', '%' . request('search') . '%')
+        //         ->orWhere('description', 'like', '%' . request('search') . '%')
+        //         ->orWhere('tags', 'like', '%' . request('search') . '%');
+        // }
+        return view('website.search', [
+            'search' => Question::latest()->filter(request(['search']))->paginate(10)
+        ]);
+
+    }
 }
