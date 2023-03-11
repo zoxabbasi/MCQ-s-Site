@@ -85,7 +85,8 @@ class DynamicController extends Controller
     }
 
     //To check the answer of question, and get the next question
-    public function check_question() {
+    public function check_question()
+    {
         $data = json_decode(file_get_contents('php://input'), true);
         $choice = Choice::with('question')->where([
             ['id', $data['choice_id']]
@@ -97,17 +98,30 @@ class DynamicController extends Controller
             $status = 'Incorrect';
         }
 
-        $questions = Question::where('topic_id', $choice->question->topic_id)->get();
-        $questions = $choice->question->topic->questions;
-        $next_question = $questions->get($data['currentQuestion']);
+        // $question = Question::find($choice->question_id);
+        // $questions = Question::where('topic_id', $question->topic_id)->get();
+        // $questions = $choice->question->topic->questions;
+        if ($data['currentQuestion'] < count($choice->question->topic->questions)) {
 
-        Session::put('_token', sha1(microtime()));
-        $new_token = session()->get('_token');
-        echo json_encode([
-            'new_token' => $new_token,
-            'status' => $status,
-            'next_question' => $next_question,
-            'choices' => $next_question->choices
-        ]);
+            $next_question = $choice->question->topic->questions->get($data['currentQuestion']);
+
+            Session::put('_token', sha1(microtime()));
+            $new_token = session()->get('_token');
+
+            $response = [
+                'new_token' => $new_token,
+                'status' => $status,
+                'current' => $data['currentQuestion'],
+                'total' => count($choice->question->topic->questions),
+                'next_question' => $next_question,
+                'choices' => $next_question->choices
+            ];
+        } else {
+            $response = [
+                'status' => $status,
+                'end' => true
+            ];
+        }
+        echo json_encode($response);
     }
 }
