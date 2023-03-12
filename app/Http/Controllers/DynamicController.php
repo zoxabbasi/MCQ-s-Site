@@ -124,4 +124,26 @@ class DynamicController extends Controller
         }
         echo json_encode($response);
     }
+
+    //To skip a question
+    public function skip_question()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $question = Question::with('choices')->first();
+        $next_question = $question->topic->questions->where([
+            ['id', $data['currentQuestion']]
+        ])->get();
+
+        Session::put('_token', sha1(microtime()));
+        $new_token = session()->get('_token');
+
+        $response = [
+            'new_token' => $new_token,
+            // 'current' => $data['currentQuestion'],
+            'question' => $question,
+            'next_question' => $next_question,
+        ];
+        echo json_encode($response);
+    }
 }

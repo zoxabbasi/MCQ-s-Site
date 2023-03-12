@@ -82,4 +82,5 @@ Route::controller(PagesController::class)->group(function () {
 
 Route::controller(DynamicController::class)->group(function () {
     Route::post('question/check', 'check_question')->name('question.check');
+    Route::post('question/skip', 'skip_question')->name('question.skip');
 });

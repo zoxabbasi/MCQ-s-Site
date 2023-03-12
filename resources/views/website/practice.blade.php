@@ -29,6 +29,7 @@
                         </ul>
                         <button class="btn btn-primary mt-2" id="btn-submit">Submit</button>
                         <a href="{{ route('home') }}" class="btn btn-primary mt-2 d-none" id="btn-back">Home</a>
+                        <button class="btn btn-warning mt-2" id=btn-skip>Skip</button>
                     </div>
                 </div>
             </div>
@@ -44,13 +45,15 @@
         </div>
     </div>
 
-    {{-- Script for getting the correct answer and loading the next question --}}
     <script>
         function toggle(id) {
             let correctElement = document.getElementById(id);
             correctElement.classList.toggle('d-none');
         }
+    </script>
 
+    {{-- Script for getting the correct answer and loading the next question --}}
+    <script>
         const btnSubmitElement = document.getElementById('btn-submit');
         const btnBackElement = document.getElementById('btn-back');
         const questionElement = document.getElementById('question');
@@ -135,6 +138,37 @@
                     `<div class="alert alert-danger alert-dismissible fade show" role="alert">Please select any choice!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
                 msgElement.innerHTML = alertElement;
             }
+        });
+    </script>
+
+    {{-- Script to skip a question --}}
+    <script>
+        const skipElement = document.getElementById('btn-skip');
+
+
+        skipElement.addEventListener('click', function() {
+            const tokenElement = document.querySelector('input[name = "_token"]');
+            const token = tokenElement.value;
+            currentQuestion++;
+
+            const data = {
+                currentQuestion: currentQuestion,
+                _token: token,
+            }
+
+            fetch('{{ route('question.skip') }}', {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(result) {
+                        console.log(result);
+                    });
         });
     </script>
 </x-webpage.layout>
