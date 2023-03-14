@@ -52,7 +52,7 @@ class DynamicController extends Controller
             $output = '<div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 my-5"><div class="flex flex-col justify-between p-4 leading-normal">';
             foreach ($questions as $question) {
                 $output .=
-                    '<p class="my-10 mb-3 font-normal text-gray-700 dark:text-gray-400"></p><h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Question: ' . $question->text . '</h5><a href="' . route('admin.question.edit', $question) . '" class="button small green"><span class="icon"><i class="mdi mdi-eye"></i></span></a><button class="button small red --jb-modal" data-target="sample-modal"type="button"><span class="icon"><i class="mdi mdi-trash-can"></i></span></button>';
+                    '<p class="my-10 mb-3 font-normal text-gray-700 dark:text-gray-400"></p><h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Question: ' . $question->text . '</h5><x-admin.tags :tagsCsv="' . $question->tags . '" /><a href="' . route('admin.question.edit', $question) . '" class="button small green"><span class="icon"><i class="mdi mdi-eye"></i></span></a><button class="button small red --jb-modal" data-target="sample-modal"type="button"><span class="icon"><i class="mdi mdi-trash-can"></i></span></button>';
 
                 '<ol>';
                 foreach ($question->choices as $choice) {

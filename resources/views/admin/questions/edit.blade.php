@@ -67,7 +67,8 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control icons-left">
-                            <input class="input" type="text" placeholder="Text" name="question">
+                            <input class="input" type="text" placeholder="Text" name="question"
+                                value={{ old('question') ?? $question->text }}>
                             <span class="icon left"><i class="mdi mdi-mail"></i></span>
                             @error('question')
                                 <p class="text-red-500">{{ $message }}</p>
@@ -123,6 +124,22 @@
                 </div>
             </div>
             <hr>
+
+            {{-- Text field for tags --}}
+            <div class="field">
+                <label class="label">Tags</label>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control icons-left">
+                            <input class="input" type="text" placeholder="Tags" name="tags">
+                            <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                            @error('tags')
+                                <p class="text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             {{-- Buttons --}}
             <div class="field grouped">

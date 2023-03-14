@@ -66,7 +66,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control icons-left">
-                            <input class="input" type="text" placeholder="Text" name="question">
+                            <input class="input" type="text" placeholder="Enter the question" name="question">
                             <span class="icon left"><i class="mdi mdi-mail"></i></span>
                             @error('question')
                                 <p class="text-red-500">{{ $message }}</p>
@@ -102,9 +102,29 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control icons-left">
-                            <input class="input" type="text" placeholder="Text" name="correct_choice">
-                            <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                            <input class="input" type="text" placeholder="Enter the correct choice number"
+                                name="correct_choice">
+                            <span class="icon left">
+                                <i class="mdi mdi-mail"></i>
+                            </span>
                             @error('correct_choice')
+                                <p class="text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Tags</label>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control icons-left">
+                            <input class="input" type="text" placeholder="Tags" name="tags">
+                            <span class="icon left">
+                                <i class="mdi mdi-mail"></i>
+                            </span>
+                            @error('tags')
                                 <p class="text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
@@ -150,18 +170,18 @@
             }
 
             fetch('{{ route('admin.subject.topics') }}', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(result) {
-                // topicElement.innerHTML = result;
-                console.log(data);
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(result) {
+                    topicElement.innerHTML = result;
+                    // console.log(data);
                 })
         })
     </script>

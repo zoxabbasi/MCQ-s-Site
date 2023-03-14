@@ -76,7 +76,7 @@
         </div>
 
         {{-- To display all the questions from the database --}}
-        <div class="card-content" id="all-questions">
+        {{-- <div class="card-content" id="all-questions">
             @if (count($questions))
                 @foreach ($questions as $question)
                     <div
@@ -106,7 +106,7 @@
             @else
                 <p>No questions found</p>
             @endif
-        </div>
+        </div> --}}
     </div>
 
     {{-- To get all the topics of the specific subject in the dropdown --}}

@@ -45,6 +45,7 @@ class QuestionController extends Controller
             'choice_2' => ['required'],
             'choice_3' => ['required'],
             'choice_4' => ['required'],
+            'tags' => ['required'],
             'correct_choice' => ['required', 'numeric', 'min:1', 'max:4'],
         ]);
 
@@ -52,6 +53,7 @@ class QuestionController extends Controller
             'topic_id' => $request->topic,
             'text' => $request->question,
             'explanation' => $request->explanation,
+            'tags' => $request->tags,
             'count' => 0,
         ];
 
@@ -97,6 +99,7 @@ class QuestionController extends Controller
     public function edit(Question $question)
     {
         return view('admin.questions.edit',[
+            'question' => $question,
             'subjects' => Subject::all(),
             'topics' => Topic::all(),
         ]);
@@ -107,7 +110,48 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $request->validate([
+            'subject' => ['required'],
+            'topic' => ['required'],
+            'question' => ['required'],
+            'choice_1' => ['required'],
+            'choice_2' => ['required'],
+            'choice_3' => ['required'],
+            'choice_4' => ['required'],
+            'tags' => ['required'],
+            'correct_choice' => ['required', 'numeric', 'min:1', 'max:4'],
+        ]);
+
+        $data = [
+            'topic_id' => $request->topic,
+            'text' => $request->question,
+            'explanation' => $request->explanation,
+            'tags' => $request->tags,
+            'count' => $question->count,
+        ];
+
+        if ($question->update($data)) {
+            $i = 1;
+            foreach ($question->choices as $choice) {
+
+                if ($i == $request->correct_choice) {
+                    $is_correct = 1;
+                } else {
+                    $is_correct = 0;
+                }
+
+                $data = [
+                    'text' => request('choice_' . $i),
+                    'is_correct' => $is_correct,
+                    'count' => $choice->count
+                ];
+                $choice->update($data);
+                $i++;
+            }
+            return redirect()->back()->with(['message', 'Question has been updated']);
+        } else {
+            return redirect()->back()->with(['message', 'Something went wrong']);
+        }
     }
 
     /**

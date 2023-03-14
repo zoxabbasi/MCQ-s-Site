@@ -14,6 +14,7 @@ class Question extends Model
     protected $fillable = [
         'topic_id',
         'text',
+        'tags',
         'is_correct',
         'count',
     ];
